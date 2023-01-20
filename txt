@@ -1,1 +1,25 @@
 
+      
+before(async () => {
+
+    const Conn = await ethers.getContractFactory("Conn");
+    const conn = await Conn.deploy("ipfs://QmeiHPe5AhBuaHXTqabVZdHaA14A9edT6KYiZAqDzx7Wq1/25.json", 5, "0x2C30D4bAC3FbDB107DE76a289881fb011a48f621");
+  
+      describe("Taking values from constructor arguments", function() {
+          
+  
+              it("URI is correct", async () => {
+  
+              const result = await conn.uri(0);
+              expect(result).to.equal("ipfs://QmeiHPe5AhBuaHXTqabVZdHaA14A9edT6KYiZAqDzx7Wq1/25.json");
+              });
+  
+              it("Supply is limited", async () => {
+                
+                  const max = await conn.maxsupply();
+                  
+                  expect(max).to.be.not.undefined;
+                  expect(max).to.be.not.null;
+                  expect(max).to.be.not.equal(0);
+                  expect(max).to.equal(5);
+              });
